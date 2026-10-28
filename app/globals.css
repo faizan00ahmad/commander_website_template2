@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-sector="agro"] {
+  --bg: 247 250 248;
+  --fg: 16 28 22;
+  --panel: 255 255 255;
+  --line: 218 228 221;
+  --accent: 22 148 72;
+  --onaccent: 255 255 255;
+  --tint: 230 245 236;
+  --radius: 20px;
+}
+[data-sector="petrogas"] {
+  --accent: 29 78 216;
+  --tint: 227 235 252;
+  --line: 214 222 240;
+  --bg: 246 248 253;
+}
+[data-sector="seeds"] {
+  --accent: 168 85 43;
+  --tint: 247 235 226;
+  --line: 233 222 212;
+  --bg: 252 249 246;
+}
+
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { @apply bg-bg font-body text-fg antialiased; transition: background-color .5s ease; }
+::selection { background: rgb(var(--accent)); color: #fff; }
+
+.sector-fx, .sector-fx * { transition: background-color .45s ease, color .35s ease, border-color .45s ease, box-shadow .45s ease; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-5 md:px-8; }
+  .h-display { @apply font-display font-bold leading-[1.05] tracking-tight; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[.2em] text-accent; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition; }
+  .btn-primary { @apply bg-accent text-onaccent shadow-lg shadow-accent/25 hover:-translate-y-0.5; }
+  .btn-ghost { @apply border-2 border-fg/15 text-fg hover:border-accent hover:text-accent; }
+  .btn-invert { @apply bg-white text-fg hover:bg-fg hover:text-white; }
+}

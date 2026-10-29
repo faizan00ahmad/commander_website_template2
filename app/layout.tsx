@@ -3,6 +3,7 @@ import { Manrope, Sora } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingContact from "@/components/FloatingContact";
 
 const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
 const display = Sora({ subsets: ["latin"], variable: "--font-display" });
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <FloatingContact />
       </body>
     </html>
   );

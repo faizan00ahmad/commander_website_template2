@@ -27,7 +27,8 @@ export default function SectorExplorer() {
 
   return (
     <div className="sector-fx">
-      <section id="sectors" className="container-x pt-14 md:pt-20">
+      <section id="sectors" className="container-x relative pt-14 md:pt-20">
+        <div className="pointer-events-none absolute -top-10 right-0 -z-10 h-96 w-96 rounded-full bg-accent/15 blur-3xl" />
         <p className="eyebrow animate-rise">Commander Group · Since 1996</p>
         <h1 className="h-display mt-4 max-w-4xl animate-rise text-4xl md:text-7xl">
           Choose your sector.<br /><span className="text-accent">We&apos;ll take it from here.</span>
@@ -51,13 +52,23 @@ export default function SectorExplorer() {
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-widest backdrop-blur">{s.tag}</span>
                   <h3 className="h-display mt-3 text-2xl">{s.name}</h3>
-                  <p className="mt-1 text-sm text-white/75">Est. {s.since} {on && "· Selected"}</p>
+                  <p className="mt-1 flex items-center justify-between text-sm text-white/75"><span>Est. {s.since}</span><span className={`grid h-9 w-9 place-items-center rounded-full transition ${on ? "bg-accent text-onaccent" : "bg-white/15 group-hover:bg-white/30"}`}>{on ? "✓" : "→"}</span></p>
                 </div>
               </button>
             );
           })}
         </div>
       </section>
+
+      <div className="sticky top-[70px] z-30 mt-10 border-y border-line bg-bg/90 backdrop-blur">
+        <div className="container-x flex items-center gap-2 overflow-x-auto py-3 text-sm font-semibold">
+          <span className="hidden shrink-0 text-xs uppercase tracking-widest text-fg/45 sm:inline">Viewing</span>
+          {sectors.map((s) => (
+            <button key={s.id} onClick={() => select(s.id as SectorId)} aria-pressed={s.id === id}
+              className={`shrink-0 rounded-full px-4 py-2 transition ${s.id === id ? "bg-accent text-onaccent" : "text-fg/65 hover:bg-tint"}`}>{s.name}</button>
+          ))}
+        </div>
+      </div>
 
       <section key={sector.id} className="container-x animate-fade pt-14">
         <div className="grid gap-10 rounded-[28px] bg-tint p-8 md:grid-cols-[1.1fr_1fr] md:p-12">
@@ -118,7 +129,7 @@ export default function SectorExplorer() {
       <section className="container-x pt-20">
         <div className="grid gap-4 md:grid-cols-3">
           {certifications.map((c) => (
-            <div key={c.code} className="rounded-[var(--radius)] border border-line bg-panel p-7">
+            <div key={c.code} className="lift rounded-[var(--radius)] border border-line bg-panel p-7">
               <p className="h-display text-2xl text-accent">{c.code}</p>
               <p className="mt-1 text-fg/60">{c.label}</p>
             </div>

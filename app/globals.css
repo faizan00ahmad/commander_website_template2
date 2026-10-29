@@ -39,7 +39,7 @@ body { @apply bg-bg font-body text-fg antialiased; transition: background-color 
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition; }
   .btn-primary { @apply bg-accent text-onaccent shadow-lg shadow-accent/25 hover:-translate-y-0.5; }
   .btn-ghost { @apply border-2 border-fg/15 text-fg hover:border-accent hover:text-accent; }
-  .btn-invert { @apply bg-white text-fg hover:bg-fg hover:text-white; }
+  .btn-invert { @apply bg-fg text-bg hover:opacity-90; }
 }
 
 /* ---- shared polish ---- */
@@ -52,4 +52,29 @@ body { @apply bg-bg font-body text-fg antialiased; transition: background-color 
 section[id] { scroll-margin-top: 90px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+[data-theme="dark"] {
+  --bg: 10 18 14; --fg: 232 240 235; --panel: 17 28 22; --line: 36 52 43;
+  --accent: 52 211 120; --onaccent: 4 22 12; --tint: 20 36 28;
+}
+[data-theme="dark"][data-sector="petrogas"] {
+  --bg: 9 13 24; --fg: 230 236 250; --panel: 15 22 40; --line: 32 44 70;
+  --accent: 110 150 255; --onaccent: 5 10 30; --tint: 18 28 52;
+}
+[data-theme="dark"][data-sector="seeds"] {
+  --bg: 20 13 9; --fg: 245 236 228; --panel: 30 21 15; --line: 56 42 32;
+  --accent: 228 140 92; --onaccent: 30 12 4; --tint: 40 27 19;
+}
+
+/* ---- mobile ---- */
+html { -webkit-text-size-adjust: 100%; color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
+.btn { min-height: 48px; }
+@media (hover: none) {
+  .lift:hover { transform: none; box-shadow: none; }
+  .glow:hover { transform: none; box-shadow: none; }
+}
+@media (max-width: 767px) {
+  input, select, textarea { font-size: 16px !important; }
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
+import { themeScript } from "@/lib/theme";
 
 const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
 const display = Sora({ subsets: ["latin"], variable: "--font-display" });
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-sector="agro">
+    <html lang="en" suppressHydrationWarning data-sector="agro">
+      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body className={`${body.variable} ${display.variable}`}>
         <Header />
         <main>{children}</main>

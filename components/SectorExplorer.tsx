@@ -23,6 +23,7 @@ export default function SectorExplorer() {
   const select = (next: SectorId) => {
     setId(next);
     window.history.replaceState(null, "", `#${next}`);
+    if (window.innerWidth < 768) setTimeout(() => document.getElementById("sector-detail")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
   };
 
   return (
@@ -45,11 +46,11 @@ export default function SectorExplorer() {
                 key={s.id}
                 onClick={() => select(s.id as SectorId)}
                 aria-pressed={on}
-                className={`group relative h-72 overflow-hidden rounded-[var(--radius)] text-left transition-all duration-500 md:h-[22rem] ${on ? "ring-4 ring-accent md:-translate-y-2" : "opacity-80 hover:opacity-100"}`}
+                className={`group relative h-44 overflow-hidden rounded-[var(--radius)] text-left transition-all duration-500 sm:h-60 md:h-[22rem] ${on ? "ring-4 ring-accent md:-translate-y-2" : "opacity-80 hover:opacity-100"}`}
               >
                 <Img name={s.cover} alt={s.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 <div className={`absolute inset-0 transition ${on ? "bg-gradient-to-t from-black/85 via-black/35 to-transparent" : "bg-gradient-to-t from-black/90 via-black/55 to-black/20"}`} />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
                   <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-widest backdrop-blur">{s.tag}</span>
                   <h3 className="h-display mt-3 text-2xl">{s.name}</h3>
                   <p className="mt-1 flex items-center justify-between text-sm text-white/75"><span>Est. {s.since}</span><span className={`grid h-9 w-9 place-items-center rounded-full transition ${on ? "bg-accent text-onaccent" : "bg-white/15 group-hover:bg-white/30"}`}>{on ? "✓" : "→"}</span></p>
@@ -62,7 +63,7 @@ export default function SectorExplorer() {
 
       <div className="sticky top-[70px] z-30 mt-10 border-y border-line bg-bg/90 backdrop-blur">
         <div className="container-x flex items-center gap-2 overflow-x-auto py-3 text-sm font-semibold">
-          <span className="hidden shrink-0 text-xs uppercase tracking-widest text-fg/45 sm:inline">Viewing</span>
+          <span className="hidden shrink-0 text-xs uppercase tracking-widest text-fg/60 sm:inline">Viewing</span>
           {sectors.map((s) => (
             <button key={s.id} onClick={() => select(s.id as SectorId)} aria-pressed={s.id === id}
               className={`rounded-full px-4 py-2 transition max-sm:flex-1 sm:shrink-0 ${s.id === id ? "bg-accent text-onaccent" : "text-fg/65 hover:bg-tint"}`}><span className="sm:hidden">{s.id === "seeds" ? "Seeds" : s.tag === "LPG" ? "Petrogas" : "Agro"}</span><span className="hidden sm:inline">{s.name}</span></button>
@@ -70,7 +71,7 @@ export default function SectorExplorer() {
         </div>
       </div>
 
-      <section key={sector.id} className="container-x animate-fade pt-14">
+      <section key={sector.id} id="sector-detail" style={{ scrollMarginTop: 130 }} className="container-x animate-fade pt-14">
         <div className="grid gap-10 rounded-[28px] bg-tint p-8 md:grid-cols-[1.1fr_1fr] md:p-12">
           <div>
             <p className="eyebrow">{sector.tag}</p>

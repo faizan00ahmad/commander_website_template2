@@ -65,7 +65,7 @@ export default function SectorExplorer() {
           <span className="hidden shrink-0 text-xs uppercase tracking-widest text-fg/45 sm:inline">Viewing</span>
           {sectors.map((s) => (
             <button key={s.id} onClick={() => select(s.id as SectorId)} aria-pressed={s.id === id}
-              className={`shrink-0 rounded-full px-4 py-2 transition ${s.id === id ? "bg-accent text-onaccent" : "text-fg/65 hover:bg-tint"}`}>{s.name}</button>
+              className={`rounded-full px-4 py-2 transition max-sm:flex-1 sm:shrink-0 ${s.id === id ? "bg-accent text-onaccent" : "text-fg/65 hover:bg-tint"}`}><span className="sm:hidden">{s.id === "seeds" ? "Seeds" : s.tag === "LPG" ? "Petrogas" : "Agro"}</span><span className="hidden sm:inline">{s.name}</span></button>
           ))}
         </div>
       </div>
@@ -76,11 +76,11 @@ export default function SectorExplorer() {
             <p className="eyebrow">{sector.tag}</p>
             <h2 className="h-display mt-3 text-3xl md:text-5xl">{sector.name}</h2>
             <p className="mt-5 text-fg/70">{sector.blurb}</p>
-            <dl className="mt-8 grid grid-cols-3 gap-4">
+            <dl className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-4">
               {sector.facts.map(([v, l]) => (
-                <div key={l} className="rounded-2xl bg-panel p-4">
-                  <dt className="h-display text-xl text-accent md:text-2xl">{v}</dt>
-                  <dd className="mt-1 text-xs text-fg/60">{l}</dd>
+                <div key={l} className="flex items-center gap-4 rounded-2xl bg-panel p-4 sm:block">
+                  <dt className="h-display shrink-0 text-xl text-accent max-sm:min-w-[6.5rem] md:text-2xl">{v}</dt>
+                  <dd className="text-xs text-fg/60 sm:mt-1">{l}</dd>
                 </div>
               ))}
             </dl>
